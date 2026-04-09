@@ -7,8 +7,8 @@ export const AuthContext = createContext();
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(getToken() || null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Restore token from localStorage on mount
@@ -18,6 +18,8 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
       setAuthToken(storedToken);
     }
+    // Mark as loaded after checking localStorage
+    setIsLoading(false);
   }, []);
 
   // Login function
