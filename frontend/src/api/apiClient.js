@@ -1,8 +1,21 @@
 import axios from 'axios';
 
+// Determine the API base URL based on environment
+const getApiBaseUrl = () => {
+  // On Render: use the full backend URL from environment variable
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // Locally: use relative path (will use Vite proxy)
+  return '/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
 // Create a single axios instance for all API calls
 const apiClient = axios.create({
-  baseURL: '/',
+  baseURL: API_BASE_URL,
   timeout: 10000,
 });
 

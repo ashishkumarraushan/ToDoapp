@@ -3,7 +3,7 @@ import apiClient from './apiClient';
 // Signup API call
 export const signup = async (name, email, password, confirmPassword) => {
   try {
-    const response = await apiClient.post('/api/auth/signup', {
+    const response = await apiClient.post('/auth/signup', {
       name,
       email,
       password,
@@ -18,7 +18,7 @@ export const signup = async (name, email, password, confirmPassword) => {
 // Login API call
 export const login = async (email, password) => {
   try {
-    const response = await apiClient.post('/api/auth/login', {
+    const response = await apiClient.post('/auth/login', {
       email,
       password,
     });
