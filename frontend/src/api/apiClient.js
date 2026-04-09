@@ -2,17 +2,17 @@ import axios from 'axios';
 
 // Determine the API base URL based on environment
 const getApiBaseUrl = () => {
-  // Check if we have a production API URL set
-  const prodUrl = import.meta.env.VITE_API_URL;
+  const backendUrl = import.meta.env.VITE_API_URL;
   
-  // Only use production URL if it's explicitly set and not empty
-  if (prodUrl && typeof prodUrl === 'string' && prodUrl.trim().length > 0 && prodUrl.includes('http')) {
-    console.log('Using production API URL:', prodUrl);
-    return prodUrl;
+  // For production (Render): use full backend URL with /api
+  if (backendUrl && backendUrl.includes('http')) {
+    const url = `${backendUrl}/api`;
+    console.log('🚀 Production API URL:', url);
+    return url;
   }
   
-  // Default to relative path for local development (Vite proxy will handle it)
-  console.log('Using local proxy at /api');
+  // For local development: use proxy at /api
+  console.log('🔄 Local development - using proxy at /api');
   return '/api';
 };
 
@@ -58,6 +58,10 @@ apiClient.interceptors.response.use(
       window.location.href = '/login';
     }
     return Promise.reject(error);
+  }
+);
+
+export default apiClient;
   }
 );
 
