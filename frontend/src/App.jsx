@@ -9,14 +9,18 @@ import { useAuth } from './hooks/useAuth';
 function AppRoutes() {
   const { isAuthenticated, isLoading } = useAuth();
 
+  console.log('🔄 AppRoutes: Rendering... isLoading=', isLoading, 'isAuthenticated=', isAuthenticated);
+
   // Show loading while checking auth
   if (isLoading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
         <p>Loading...</p>
       </div>
     );
   }
+
+  console.log('✅ AppRoutes: Auth check complete. Routing to:', isAuthenticated ? '/dashboard' : '/login');
 
   return (
     <Routes>

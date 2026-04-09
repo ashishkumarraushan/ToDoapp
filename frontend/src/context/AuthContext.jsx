@@ -11,14 +11,12 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Restore token from localStorage on mount
+  // Restore and validate token from localStorage on mount
   useEffect(() => {
-    const storedToken = getToken();
-    if (storedToken) {
-      setToken(storedToken);
-      setAuthToken(storedToken);
-    }
-    // Mark as loaded after checking localStorage
+    // Clear localStorage on first load to start fresh
+    console.log('🔄 AuthContext: App initialized - clearing potentially invalid tokens');
+    localStorage.removeItem('token');
+    setToken(null);
     setIsLoading(false);
   }, []);
 

@@ -8,6 +8,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
 
   const handleLogout = () => {
+    console.log('🚪 Logging out and clearing auth...');
     logout();
     navigate('/login');
   };
