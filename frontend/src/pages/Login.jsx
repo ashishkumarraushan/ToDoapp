@@ -26,8 +26,11 @@ const Login = () => {
         throw new Error('Please provide a valid email');
       }
 
+      console.log('🔐 Attempting login...');
+      
       // Call API
       const response = await authService.login(email, password);
+      console.log('✅ Login response:', response);
 
       if (response.success) {
         // Update auth context
@@ -35,12 +38,12 @@ const Login = () => {
         
         // Redirect to dashboard
         navigate('/dashboard');
+      } else {
+        throw new Error(response.message || 'Login failed');
       }
     } catch (err) {
-      const errorMsg =
-        typeof err === 'object' && err.message
-          ? err.message
-          : 'Login failed. Please try again.';
+      console.error('❌ Login error:', err);
+      const errorMsg = err?.message || 'Login failed. Please try again.';
       setError(errorMsg);
     } finally {
       setLoading(false);
